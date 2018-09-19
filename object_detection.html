@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TT Home Page</title>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="container">
+
+		<div id="header">
+			<h1 id="title"> Tristan Technologies</h1>
+		</div>
+
+		<div id = "content">
+			<div id ="nav">
+				<h3>Navigation</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="object_detection.html"  class="selected">Object Detection</a></li>
+				</ul>
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="linux_ubuntu.html">Linux - Ubuntu</a></li>
+					<li><a href="cuda_installation.html">CUDA 9.0</a></li>
+					<li><a href ="opencv_installation.html">OpenCv 3.4.0</a></li>
+			</div>
+
+			<div id="main">
+				<h2>Object Detection</h2>
+				<p>One of my project require me to use Object Detection to detect ping pong ball
+					so that it can navigate to it. Thus, I need a real-time object detection software
+					to do this. Something that is fast enough to detect the object in realtime and
+					without using so much computing power(Since I need it to run in a Raspberry Pi).</p>
+				<p>So here I am trying to use...</p>
+				<h2>YOLO:Real-Time Object Detection</h2>
+				<hr>
+				<h3>Resources</h3>
+				<p>Linux Ubuntu 16.04</p>
+				<p>CUDA Toolkit 9.0</p>
+				<p>OpenCV 3.4.0</p>
+				<p>Darknet - YOLO</p>
+				<p>Object to detect</p>
+				<p>Webcam</p>
+				<note>NOTE: Only use the version denotated above. Other version might not be compatible
+					with each other</note>
+				<p>Assuming you have done everything above and there was no problem with it, we can start
+					doing the Object Detection stuff</p>
+				<p>Start by setting up YOLO</p>
+				<p>Open Terminal and start installation</p>
+				<note>NOTE: "Ctrl + Alt + T" will open up Terminal</note>
+				<p>If git is not installed, run the following</p>
+				<code>
+					sudo apt-get install git
+				</code>
+				<p>If or after git is installed, run the folloing</p>
+				<code>
+					cd ~<br>
+					git clone https://github.com/pjreddie/darknet<br>
+					cd darknet<br>
+					make
+				</code>
+				<p>This will copy(clone) the whole darknet repository from github to your root folder
+				and compile it</p>
+				<h3>Testing YOLO</h3>
+				<p>While still in the darknet directory, run this to get the sample weight(model) for testing</p>
+				<code>
+					wget https://pjreddie.com/media/files/yolov3.weights
+				</code>
+				<p>Then, still in the same directory, run the detector for testing</p>
+				<code>
+					./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+				</code>
+				<p>After some text flash by, an image will be produced in the same directory</p>
+				<p>If you navigate to the folder /home/(user_name)/darknet, there will be a prediction.jpg</p>
+				<img src="img/prediction.png" alt="Prediction image" id="blogImg">
+				<p>If you see the image above, it means that YOLO is correctly installed!</p>
+				<p>Now with YOLO installed properly(FOR NOW), we can begin preparing for training</p>
+				<p>Download the following files: <a href="resources/dataset_preparing.rar">Preparing Dataset</a></p>
+				<p>Download and extract the file to Desktop</p>
+				<p>Now, get the item that you want to detect and shoot a 2 minute video of it</p>
+				<!-- INSERT A GIF OF THE PING PONG VIDEO-->
+				<p>After taking a video of it, put the video file inside dataset_preparing/recordVideo</p>
+				<p>Using a text editor, open up separate.py and change the following. In line 2</p>
+				<code>
+					#change "WIN_20180903_14_23_55_Pro.mp4" to your own video file name<br>
+					#Don't forget your video extension<br>
+					2. vidcap = cv2.VideoCapture('WIN_20180903_14_23_55_Pro.mp4')
+				</code>
+				<p>After changing it to your own video, run the python script</p>
+				<p>Right click the blank space in the folder and Open in Terminal. This will open up
+				terminal and set the directory to the folder where the terminal is envoked</p>
+				<img src='img/show_terminal.jpg' alt="show terminal" id="blogImg">
+				<p>And run the following code</p>
+				<code>
+					python separate.py
+				</code>
+				<p>When the code finish running, go to dataset_preparing/recordVideo/Images. There you should be
+					video sliced into many image files. Scroll to the bottom and keep note of the amount of image
+					your video have been sliced into</p>
+				<p>Next in the folder recordVideo, use a text editor to open up generate_test_data.py and under line
+					15. Change the value that is there previously (117 in this case) and change it to the amount of image that have
+					been sliced</p>
+					<code>
+						15. 	for f in range(1, 117):<br>
+						#change 117 into the amount of image that you have<br>
+						15. for f in range(1,x);<br>
+						#x = amount of image that you have<br>
+					</code>
+					<p>Here is an example: </p>
+					<img src="img/total_img.jpg" alt="My img total" id="blogImg">
+					<p>For my case, I had 135 images. Here is how my generate_test_data.py looked</p>
+					<img src="img/separatepy.jpg" alt="Generate test data" id="blogImg">
+					<p>Save and close the file and again opening up Terminal in that directory, run the python script</p>
+					<code>
+						python generate_test_data
+					</code>
+					<p>This script will automatically divide your test images into two different folder, one for training and the other for testing</p>
+					<p>Now to label the images</p>
+					<h3>Labeling</h3>
+					<p>For labeling I will be using a image labeling app that someone has made<p>
+					<p>Download the file here: <a href="https://github.com/tzutalin/labelImg">labelImg</a></p>
+					<p>On the github website itself, there are instructions of the prerequesite needed for the application to work.
+						Open a terminal and input the following, entering 'Y' if prompted</p>
+						<code>
+							sudo apt-get install pyqt4-dev-tools<br>
+							sudo pip install lxml<br>
+							sudo pip install python-resources
+						</code>
+					<p>After all the repositories are installed, go to the directory that you downloaded it to
+						and run the python code</p>
+					<p>We will start by labeling the images for training</p>
+
+					<p>In the image labelling application, change the open directory to the dataset_preparing folder you downloaded earlier,
+						in dataset_preparing/recordVideo/VOCdevkit/VOC2012/JPEGImages</p>
+					<p>Then change the save directory to dataset_preparing/recordVideo/VOCdevkit/VOC2012/Annotations</p>
+					<p>Your image should appear in the application and you are free to label!</p>
+					<p>Basically there are 3 steps that you have to do for labeling</p>
+					<p>1. Draw a rectangle over your object<br>2. Save the labeling<br>3. Next image</p>
+					<note>SHORTCUT LEGEND:<br>
+						[w] - rectangular label tool<br>
+						[d] - next image<br>
+						[a] - previous image<br>
+						[ctrl + s] - save (much surprise)</note>
+					<p>Rinse and repeat for all your images until you are done.</p>
+					<p>After you are finished, feel free to look through all your labeled images and
+						bask in the glory of your hard work!!! Then, after taking a huge sigh, change the open
+						diretory to dataset_preparing/recordVideo/VOCdevkit/VOC2007/JPEGImages and save directory
+						to dataset_preparing/recordVideo/VOCdevkit/VOC2007/Annotations and GET TO LABELING AGAIN!!</p>
+						<note>Don't forget to save!</note>
+						<p>If you dont understand the directory that you have to get the image from and where
+							to save the labels to, here is a tree diagram for the downloaded folder which you can use to just
+							navigate to where you should do your stuff.</p>
+							<!-- ADD PICTURE OF DIRECTORY MAP -->
+							<p>Now go to the folder both in VOC2007 and VOC2012 \ImageSets\Main, there is a python script
+								called list_all_image_name.py, run it</p>
+						<p>Still good? if the answer is yes lets move on, download the next
+							folder here:
+							<a href="resources/training.rar">Training file</a>
+						. If not, go take a walk out, its too nice a day to waste it staring at a computer
+					screen :D</p>
+							<!--ADD TRAINING RAR FILE-->
+							<p>Unzip the file and it is recomended that it is put on the desktop</p>
+							<p>Now, from the dataset_preparing folder, copy the entire folder VOCdevkit into the
+								downloaded folder("training" folder)</p>
+								<p>Then do the following</p>
+								<p>1. in allclass.names, add the name of the labeled image</p>
+								<p>2. run the python script voc_label.py. This should create 2 text file called "2007_test.txt" and "2012_trainval.txt"</p>
+								<p>3. in yolov2.data, change the data accordingly.</p>
+								<p>classes - number of different label that you have (1 for me since I only have "ping_pong_ball")<br>
+									train - path of the trainval.txt (should be in the "training" folder)<br>
+									valid - path of the test.txt (should also be in the "training" folder)<br>
+									names - path to allclass.names (in the "training" folder)<br>
+									backup - path to the folder yolov2 (in "training" folder)<br></p>
+								<p>You need to change this as different computer have different username and thus different path</p>
+								<p>4. from your darnet installation folder (should be in root) go into config and copy any cfg file you
+									 want(I will be using yolov2.cfg). Paste them into the "training" folder</p>
+								<p>5. Again from darnet folder, copy the entire "data" folder into your "training" folder</p>
+								<p>6. In the .cfg file that you want to use</p>
+								<p>Under [net] set batch to 16 and subdivisions to 4 (should be in line 6 and 7 respectively if you are using yolov2.cfg)</p>
+								<p>Scroll all the way down, and under [region] set classes to the number of class you have (line 244 in yolov2.cfg)</p>
+								<p>A little above it, under [convolutional] with activation = linear, set <br>filters to (classes + 1)*5 (line 237 in yolov2.cfg)</p>
+								<p>Save the .cfg file</p>
+								<p>Now you are ready to start training</p>
+								<p>Open a terminal in the "training" folder directory and run the following</p>
+								<code>
+									[path to darknet] detector train [path to .data] [path to .cfg] darknet19_448.conv.23<br>
+								#Example: /home/hanscau/darknet/darknet detector train yolov2.data yolov2.cfg darknet19_448.conv.23
+							</code>
+							<p>if you have been putting the folder in the prefered pathing, you just have to change "hanscau" with
+								your own user name and run the command. If not, then change the "/home/hanscau/darknet/darknet" to
+								where you installed darknet</p>
+								<p>This should run some code and start training your model</p>
+								<p>Look out for the SOMETHING, the higher it goes, the more accurate the training</p>
+								<!-- TODO: FIND OUT WHAT SOMETHING IS -->
+								<p>The training will automatically create a model after every 100 images interval, then after 900 images
+									it will create a model at a 10000 image interval</p>
+									<p> the model will be saved in the "yolov2" folder in the "training" folder</p>
+								<note>NOTE: The images that they use to train does not have to correspond to the number of images that you supplied. Meaning
+									it can train until 10 000 images even though you only supplied 100++</note>
+									<p>After the desired model is done, you can cancel the training. Press Ctrl + C to cancel it</p>
+									<note>NOTE: You can use [Ctrl + C] to cancel most scripts or application</note>
+									<p>Now for the part where all of us are waiting for</p>
+									<h3>DEMO</h3>
+									<p>Open a terminal in the "training" folder and run the following</p>
+									<code>
+										[path to darknet] demo detector [path to .data file] [path to .cfg file]  [path to .weights(model)]<br>
+										#Example: /home/hanscau/darknet/darknet detector demo yolov2.data yolov2.cfg yolov2/yolov2_900.weights
+									</code>
+									<p>Similarly, if you have been following, you just have to change the path to darknet and it should work</p>
+									<p>Your webcam will be initialised and if you were to put your item infront of you webcam the program should draw
+										a bounding box around it with your label on it</p>
+										<!-- TODO: ADD PICS -->
+										<p>And you are done</p>
+										<p>After training, the file you need will just be the .cfg file and .weight file</p>
+		</div>
+
+		<div id="footer">
+			Copyright Tristan Technologies 2018 &copy;
+		</div>
+
+	</div>
+	<script src="autoEdit.js"></script>
+</body></html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TT Home Page</title>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="container">
+
+		<div id="header">
+			<h1 id="title"> Tristan Technologies</h1>
+		</div>
+
+		<div id = "content">
+			<div id ="nav">
+				<h3>Navigation</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="object_detection.html">Object Detection</a></li>
+				</ul>
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="linux_ubuntu.html">Linux - Ubuntu</a></li>
+					<li><a href="cuda_installation.html"  class="selected">CUDA 9.0</a></li>
+					<li><a href ="opencv_installation.html">OpenCv 3.4.0</a></li>
+			</div>
+
+			<div id="main">
+			<h2>CUDA 9.0 Installation</h2>
+			<hr>
+			<p>Installing CUDA is a very torturous thing to do, so here are the steps I took to install CUDA
+				successful (at least enough for Darknet YOLO Object Detection).
+			<h3>Resources</h3>
+			<p>Linux - Ubuntu 16.04 (min 30Gb space)</p>
+			<p>CUDA 9.0 (maybe 9.3 too?)</p>
+			<h3>Why so difficult?</h3>
+			<p>Installing CUDA is painful because following the instruction given in the website itself
+				will procure an error about X server. Googling on how to disable X server is worthy of another
+				page by itself, and even after following all the instructions online (at least to the best of
+				my ability) I still couldn't disable X server for the installation of CUDA 9.0. Thus, after much
+				research(googling) and tears. I have come out with a method of installing CUDA without needing to
+				disable X server</p>
+			<h3>BEFORE YOU CONTINUE</h3>
+			<p>Checklist: (if you could not tick any close this page and abandond all hope)</p>
+			<p>Do you have a Nvidia Graphics card?<p>
+			<p>Is your card CUDA capable?</p>
+			<p><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions">Check here</a></p>
+			<p>Do you wish to suffer from frustration and hair lost(from pulling it)?</p>
+			<p>If your answer to above is all yes, you may proceed...</p>
+			<note>
+				WARNING: I do not take personal responsibility in your quest to install CUDA. If installation does not work, I will
+				not be held responsible!
+			</note>
+			<h3>Flow of installation</h3>
+			<p>Normally, if you just google CUDA 9.0 toolkit, you will come across a website by Nvidia providing
+				CUDA 9.0 Toolkit download. After providing info of your operating system and versions, you can finally
+				download the file and realised that you cannot install it. The file that is provided by Nvidia is
+				a bundle of:<br><br>1. Nvidia card driver<br>2. CUDA toolkit itself<br>3. Sample CUDA files<br><br>
+				The installation of the card driver is what cause the X server error, so if you can install the card
+				driver separately..... yeah (PROBLEM = SOLVE). If you know what to do after this, then good for you, if
+				not, follow along what I did</p>
+			<h3>WHAT YOU WILL NEED</h3>
+			<p>CUDA 9.0 toolkit from Nvidia (get the .run file) (just google it)</p>
+			<p>thats all you need to download separately, anything else could be done from the linux terminal itself</p>
+			<h3>Installing: Nvidia Card Driver</h3>
+			<p>Open up terminal and add the official Nvidia PPA to Ubuntu</p>
+			<code>
+				sudo add-apt-repository ppa:graphics-drivers/ppa
+			</code>
+			<p>Next, install nvidia driver</p>
+			<code>
+				sudo apt update<br>
+				sudo apt install nvidia-387
+			</code>
+			<note>
+				Note:  For G8x, G9x and GT2xx GPUs use `nvidia-340` (340.104)<br>
+				For NV4x and G7x GPUs use `nvidia-304` (304.137)
+			</note>
+			<p>Reboot your system after driver installation</p>
+			<code>
+				sudo reboot
+			</code>
+			<p>Next, verify if driver is properly installed</p>
+			<code>
+				nvidia-smi
+			</code>
+			<!-- TODO: ADD PIC OF NVIDIA-SMI -->
+			<p>If verification is correct, proceed</p>
+			<h3>Installing: CUDA Toolkit 9.0 and Sample</h3>
+			<p>Open Terminal in the same location where you install your CUDA .run file(the one that you
+				install above)</p>
+			<note>
+				NOTE:Right click on the folder and select "Open in Terminal" to open terminal directly
+				in that path
+			</note>
+			<p>install the .run file</p>
+			<code>
+					sudo sh [name of cuda installation file].run
+			</code>
+			<p> change the code above accordingly</p>
+			<p>An EULA will appear, scroll to the bottom of it to continue</p>
+			<note>
+				NOTE: Pressing [d] will scroll faster
+			</note>
+			<p>Accept the EULA</p>
+			<p>READ THE INSTRUCTION AND DO NOT INSTALL THE NVIDIA DRIVER (already installed above)</p>
+			<p>Say YES('y') to everything else</p>
+			<p>After installing, run the following</p>
+			<code>
+				sudo bash -c "echo /usr/local/cuda/lib64/ > /etc/ld.so.conf.d/cuda.conf"<br>
+				sudo ldconfig
+			</code>
+			<p>I don't know what the above does, but just do it...</p>
+			<h3>Test CUDA Installation</h3>
+			<p>Make the sample file</p>
+			<code>
+				cd /usr/local/cuda-9.0/samples<br>
+				sudo make<br>
+			</code>
+			<note>
+				NOTE:If it looks stuck DON'T PANIC, mine took pretty long too...
+			</note>
+			<p>Test it!</p>
+			<code>
+				cd /usr/local/cuda/samples/bin/x86_64/linux/release<br>
+				./deviceQuery
+			</code>
+			<p>If everything goes well, then CONGRATULATION!!!! YOU DID IT!!!</p>
+			<h3>Setting CUDA up</h3>
+			<p>Next, will just be some path thingy to configure CUDA properly</p>
+			<code>
+				export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+			</code>
+			<p>And the next is Operating System sensitive, so for 64-bit run</p>
+			<code>
+				export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64\<br>
+				{LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+			</code>
+			<p>For 32-bit </p>
+			<code>
+				export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib\<br>
+				{LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+			</code>
+			<p>And you are done. xD</p>
+			<h3>Troubleshooting</h3>
+			<p>It will be sad if you are reading this, but if you are still determined
+				to install CUDA, here are the website that I used when installing mine</p>
+			<p><a href="	https://gist.github.com/zhanwenchen/e520767a409325d9961072f666815bb8">	https://gist.github.com/zhanwenchen/e520767a409325d9961072f666815bb8</a></p>
+			<p><a href="https://websiteforstudents.com/install-proprietary-nvidia-gpu-drivers-on-ubuntu-16-04-17-10-18-04/">https://websiteforstudents.com/install-proprietary-nvidia-gpu-drivers-on-ubuntu-16-04-17-10-18-04/</a></p>
+			<p><a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions">https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions</a></p>
+			<p>If all else fails, just GoOglE it ;)</p>
+		</div>
+
+		<div id="footer">
+			Copyright Tristan Technologies 2018 &copy;
+		</div>
+
+	</div>
+	<script src="autoEdit.js"></script>
+</body>
+</html>

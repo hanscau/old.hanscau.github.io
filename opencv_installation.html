@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TT Home Page</title>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="container">
+
+		<div id="header">
+			<h1 id="title"> Tristan Technologies</h1>
+		</div>
+
+		<div id = "content">
+			<div id ="nav">
+				<h3>Navigation</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="object_detection.html">Object Detection</a></li>
+				</ul>
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="linux_ubuntu.html">Linux - Ubuntu</a></li>
+					<li><a href="cuda_installation.html">CUDA 9.0</a></li>
+					<li><a href ="opencv_installation.html"  class="selected">OpenCv 3.4.0</a></li>
+			</div>
+
+			<div id="main">
+			<h2>OpenCV 3.4.0 Installation</h2>
+			<hr>
+			<p>OpenCV installation byitself is actually not difficult, but installing it together with CUDA is quite hard for people who
+				are new to Ubuntu or OpenCV installation.</p>
+			<h3>Installation</h3>
+			<p>If you just want openCV without CUDA support, open terminal</p>
+			<code>
+				sudo apt-get install python-opencv
+			</code>
+			<p>If you want it to work with CUDA and for Object Detection, well here we go</p>
+			<h3>Resources</h3>
+			<p>CUDA 9.0 Toolkit already installed</p>
+			<p>Linux operating system (any should work)</p>
+			<h3>Compiling OpenCV from Source</h3>
+			<p>I will be installing OpenCV 3.4.0 for it to work with CUDA. However, installation of other
+				versions of openCV will  be the same too, the only difference is what files that you
+			download</p>
+			<p>First, install the necessary reprequisite for installing OpenCv</p>
+			<p>Run the following one by one</p>
+			<code>
+				sudo apt-get update<br>
+				sudo apt-get upgrade<br>
+				sudo apt-get install build-essential cmake pkg-config<br>
+				sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev<br>
+				sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev<br>
+				sudo apt-get install libxvidcore-dev libx264-dev<br>
+				sudo apt-get install libgtk-3-dev<br>
+				sudo apt-get install libatlas-base-dev gfortran<br>
+				sudo apt-get install python2.7-dev python3.5-dev<br>
+				sudo apt-get install python-devel numpy<br>
+				sudo apt-get install gcc gcc-c++<br>
+				sudo apt-get install gtk2.0<br>
+				sudo apt-get install libv4l-0<br>
+			</code>
+			<p>Next, download the desired OpenCV version and its contrib repository</p>
+			<p>OpenCV 3.4.0</p>
+			<code>
+				cd ~<br>
+				wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.4.0.zip<br>
+				unzip opencv.zip<br>
+			</code>
+			<p>OpenCV 3.4.0 contrib</p>
+			<code>
+				wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.4.0.zip<br>
+				unzip opencv_contrib.zip<br>
+			</code>
+			<p>Latest OpenCV</p>
+			<code>
+				cd ~<br>
+			</code>
+
+		</div>
+
+		<div id="footer">
+			Copyright Tristan Technologies 2018 &copy;
+		</div>
+
+	</div>
+	<script src="autoEdit.js"></script>
+</body>
+</html>
