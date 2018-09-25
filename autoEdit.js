@@ -1,5 +1,5 @@
-document.getElementById("title").innerHTML = "Something";
-document.getElementById("footer").innerHTML = "Copyright Something 2018 &copy;";
+document.getElementById("title").innerHTML = "Hans Bacca";
+document.getElementById("footer").innerHTML = "Copyright Hans Bacca 2018 &copy;";
 
 var navLink = [
 "blog1.html",
