@@ -1,36 +1,26 @@
 document.getElementById("title").innerHTML = "Hans Bacca";
 document.getElementById("footer").innerHTML = "Copyright Hans Bacca 2018 &copy;";
 
-var navLink = [
-"blog1.html",
-"blog2.html",
-"blog3.html",
-"blog4.html",
-"blog5.html"
-];
+nameList=["Linux Ubuntu",
+          "CUDA 9.0",
+          "OpenCV 3.4.0",
+          "SSH + RPi"]
 
-var navName = [
-"Blog 1",
-"Blog 2",
-"Blog 3",
-"Blog 4",
-"Blog 5"
-];
+addressList=["linux_ubuntu.html",
+              "cuda_installation.html",
+              "opencv_installation.html",
+              "ssh_rpi.html"]
 
-var i;
-for(var i = 0 ; i < navLink.length ; i++)
+for(var i = 0 ; i < nameList.length ; i++)
 {
   var link = document.createElement("a");
-  var node = document.createTextNode(navName[i]);
+  var node = document.createTextNode(nameList[i]);
   link.appendChild(node);
 
-  link.href=navLink[i];
+  link.href=addressList[i];
 
   var para = document.createElement("li");
   para.appendChild(link);
-
-  if(navName[i] === titleName)
-    para.id="selected";
 
   var element = document.getElementById("navContainer");
   element.appendChild(para);

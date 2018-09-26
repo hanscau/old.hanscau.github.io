@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>H Ubuntu</title>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="container">
+
+		<div id="header">
+			<h1 id="title"> Tristan Technologies</h1>
+		</div>
+
+		<div id = "content">
+			<div id ="nav">
+				<h3>Navigation</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="object_detection.html">Object Detection</a></li>
+				</ul>
+				<h4>Resources</h4>
+				<ul id="navContainer">
+				</ul>
+			</div>
+
+			<div id="main">
+			<h2>SSH + RaspberryPi</h2>
+			<hr>
+			<h3>Resources</h3>
+				<p>Rasbpian OS Flashed on SD card</p>
+				<p><a href="resource/ssh">This file here</a></p>
+				<p><a href="https://www.putty.org/">Putty</a></p>
+			<h3>Setting up RaspberryPi</h3>
+				<p>Copy the downloaded file above ("ssh") into the "boot" folder
+					of the RPi SD card</p>
+					<note>
+						NOTE: Rpi = RaspberryPi
+					</note>
+			<h3>Connecting to the web</h3>
+				<h4>Ethernet</h4>
+				<p>Connect RPi to internet using ethernet</p>
+				<p>Plug in and skip the next part</p>
+				<h4>Wifi</h4>
+				<p>Boot RaspberryPi and connect to wifi</p>
+				<note>
+					NOTE: for a new RPi boot, id="pi" password="raspberry"
+				</note>
+				<p>If you want to do it with command line</p>
+				<code>
+					sudo raspi-config
+				</code>
+				<p>Navigate using arrowkey and connect to wifi</p>
+			<h3>Connecting to 3.1415265</h3>
+				<p>Run the following in terminal to get IP of the Rpi</p>
+				<code>
+					ip addr show
+				</code>
+				<p>Open Putty and copy the IP adress of the Rpi into the blank. Allow
+					the port to be default (22) and select SSH. Connect!</p>
+				<p>When SSH connects, login as (if you didn't change it)</p>
+				<p>id=pi</p>
+				<p>password=raspberry</p>
+				<note>
+					NOTE: When typing password, you cannot see the word... its a Linux thing i think
+				</note>
+				<p>And you are connected!</p>
+			<h3>Headless configuration</h3>
+				<p>Another way you can get the Ip of your RPi is with Angry IP Scanner</p>
+				<p><a href="https://angryip.org/download/#windows">Angry IP Scanner</p>
+			</div>
+
+		<div id="footer">
+			Copyright Tristan Technologies 2018 &copy;
+		</div>
+
+	</div>
+	<script src="autoEdit.js"></script>
+</body>
+</html>
