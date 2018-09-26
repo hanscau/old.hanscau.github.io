@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TT Home Page</title>
+	<title>H OpenCV</title>
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -57,7 +57,7 @@
 				sudo apt-get install libgtk-3-dev<br>
 				sudo apt-get install libatlas-base-dev gfortran<br>
 				sudo apt-get install python2.7-dev python3.5-dev<br>
-				sudo apt-get install python-devel numpy<br>
+				sudo apt-get install python-dev python-numpy<br>
 				sudo apt-get install gcc gcc-c++<br>
 				sudo apt-get install gtk2.0<br>
 				sudo apt-get install libv4l-0<br>
@@ -77,8 +77,70 @@
 			<p>Latest OpenCV</p>
 			<code>
 				cd ~<br>
+				wget -O opencv.zip https://github.com/opencv/opencv<br>
+				unzip opencv.zip<br>
 			</code>
-
+			<p>Lates OpenCV Contrib</p>
+			<code>
+				wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib</br>
+				unzip opencv_contrib.zip<br>
+			</code>
+			<p>After unzipping it, go into opencv folder and make a new folder called "build"</p>
+			<code>
+				cd opencv<br>
+				mkdir build<br>
+				cd build
+			</code>
+			<p>Then build the config file! Choose accordingly and run it in the build folder</p>
+			<p>Compile with OpenCV_contrib</p>
+			<code>
+				cmake -D CMAKE_BUILD_TYPE=RELEASE \<br>
+    		-D CMAKE_INSTALL_PREFIX=/usr/local \<br>
+    		-D INSTALL_PYTHON_EXAMPLES=ON \<br>
+    		-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \<br>
+    		-D BUILD_EXAMPLES=ON \<br>
+				..
+			</code>
+			<p>Compile with OpenCV_contrib and CUDA</p>
+			<code>
+				cmake -D CMAKE_BUILD_TYPE=RELEASE \<br>
+    		-D CMAKE_INSTALL_PREFIX=/usr/local \<br>
+    		-D INSTALL_PYTHON_EXAMPLES=ON \<br>
+    		-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \<br>
+    		-D BUILD_EXAMPLES=ON \<br>
+				-D WITH_CUDA=ON \<br>
+				-D ENABLE_FAST_MATH=1 \<br>
+				-D CUDA_FAST_MATH=1 \<br>
+				-D WITH_CUBLAS=1 \<br>
+				..
+			</code>
+			<note>
+				NOTE: Change the "OPENCV_EXTRA_MODULES_PATH" to the appropriate path to OpenCV_contrib
+			</note>
+			<p>Basically, these are the parameter you can use to compile OpenCV to your liking.
+				If you want to compile it with CUDA(which is what you need for ObjDectection) then choose
+				the appropriate parameter above. Regardless of how you edit the parameter, add a ".." at
+				the end of the command, it is to point to the root OpenCV folder.</p>
+			<note>
+				NOTE: ".." means go back the directory path by one
+			</note>
+		<p>After the config file is done (Could take quite a while), run the following</p>
+		<code>
+			#change "4" with the number of cores you want to compile it with<br>
+			make -j4
+		</code>
+		<p>When it is done compiling, install it</p>
+		<code>
+			make install
+		</code>
+		<p>And you are done!</p>
+		<h3>Testing</h3>
+		<p>For testing to see if installation is complete run the following in python</p>
+		<code>
+			import cv2 as cv<br>
+			print(cv.__version__)
+		</code>
+		<p>It should return the version of OpenCV that you installed</p>
 		</div>
 
 		<div id="footer">
