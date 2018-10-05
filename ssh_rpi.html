@@ -10,7 +10,7 @@
 	<div id="container">
 
 		<div id="header">
-			<h1 id="title"> Tristan Technologies</h1>
+			<h1 id="title">H Pi Setup</h1>
 		</div>
 
 		<div id = "content">
@@ -26,22 +26,42 @@
 			</div>
 
 			<div id="main">
-			<h2>RaspberryPi + SSH</h2>
+			<h2>Setup RaspberryPi</h2>
 			<hr>
 			<h3>Resources</h3>
-				<p>Rasbpian OS Flashed on SD card</p>
-				<p><a href="resources/ssh">This file here</a></p>
-				<p><a href="https://www.putty.org/">Putty</a></p>
+				<p>RaspberryPi</p>
+				<p>SD card (recommended 8Gb)</p>
+				<p>SD card reader (optional)</p>
+				<h4>Internet connection thingy (choose 1)</h4>
+				<p>Ethernet cable (with access to ethernet internet)</p>
+				<p>USB Wifi adapter</p>
+				<h4>Software</h4>
+				<p>Raspberry OS <a href="https://www.raspberrypi.org/downloads/raspbian/"> Raspbian</a></p>
+				<p>SD card Flashing software <a href="https://etcher.io/">Etcher</a></p>
+				<p>SSH connection software <a href="https://www.putty.org/">Putty</a></p>
+				<p>VNC connection software <a href="https://www.tightvnc.com/">TightVNC</a></p>
+				<p>IP address scanning software <a href="https://angryip.org/download/#windows">AngryIP</a></p>
+			<h3>Overview</h3>
+			<p>We will be trying to setup a RaspberryPi without any keyboard, mouse or monitor. In other words
+				a "Headless" connection.</p>
+			<p>This can be achieved by:</p>
+			<p>1. Connecting the RPi to the internet without an interface</p>
+			<p>2. SSHing into the RPi to start a VNC</p>
+			<p>3. Using a VNC for remote control using your PC</p>
+			<note>
+				NOTE: Rpi = RaspberryPi
+			</note>
 			<h3>Setting up RaspberryPi</h3>
-				<p>Copy the downloaded file above ("ssh") into the "boot" folder
-					of the RPi SD card</p>
-					<note>
-						NOTE: Rpi = RaspberryPi
-					</note>
+				<p>Download any Raspberry OS that you want and flash it using Etcher to your SD card</p>
+				<p>I will be using Raspbian Strech Lite because I need all the extra space I can get from the RPi</p>
+				<p>After flashing is complete with verification by Etcher we can start by conneting the RPi to the internet</p>
+				<note>
+					NOTE: IF ETCHER VERIFCATION FAIL, CONTINUE AT YOUR OWN RISKED (NOTE RECOMMENDED)
+				</note>
 			<h3>Connecting to the web</h3>
 				<h3>Ethernet</h3>
 				<p>Connect RPi to internet using ethernet</p>
-				<p>Plug in and skip the next part</p>
+				<p>Plug in and go to the next part</p>
 				<h3>Wifi</h3>
 				<h4>Headless connection</h4>
 				<p>Using a card reader, insert in the SD card and open up the "boot" partition</p>
@@ -70,23 +90,13 @@
 				<note>
 					NOTE: Add in the name and password with quotation mark
 				</note>
-				<p>Don't forget to save!</p>
-				<h4>GUI Connection</h4>
-				<p>In the upper left of your desktop there should be a WiFi symbol...</p>
-				<p>Connect it normally?</p>
-				<note>
-					NOTE: for a new RPi boot, id="pi" password="raspberry"
-				</note>
-				<h4>Command Line connection</h4>
-				<code>
-					sudo raspi-config
-				</code>
-				<p>Navigate using arrowkey and connect to wifi</p>
-			<h3>Connecting to 3.1415265</h3>
-				<p>Run the following in terminal to get IP of the Rpi</p>
-				<code>
-					ip addr show
-				</code>
+			<h3>SSHing to 3.1415265</h3>
+				<p>Before pluging the SD card into the RPi, also in the "boot" partition create a file
+					called "ssh". No extension, no nothing, just a file that is called "ssh", this is to
+					prompt the RPi to enable SSH connection</p>
+				<p>Next, plug the SD card into the RPi and also the Wifi adapter(if you are using Wifi for connection)</p>
+				<p>Then, after waiting for a bit for the RPi to boot and connect to the Wifi, use AngryIP to get the IP of your
+					RPi, it should be under the host name raspberrypi</p>
 				<p>Open Putty and copy the IP adress of the Rpi into the blank. Allow
 					the port to be default (22) and select SSH. Connect!</p>
 				<p>When SSH connects, login as (if you didn't change it)</p>
@@ -95,13 +105,40 @@
 				<note>
 					NOTE: When typing password, you cannot see the word... its a Linux thing i think
 				</note>
-				<p>And you are connected!</p>
-			<h3>Headless configuration</h3>
-				<p>Another way you can get the IP of your RPi after its connected to the WiFi is with Angry IP Scanner</p>
-				<p><a href="https://angryip.org/download/#windows">Angry IP Scanner</a></p>
-				<p>Or you could just access the admin panel of your router and locate the IP adress of the hostname "raspberrypi"</p>
-			</div>
-
+				<p>Now with SSH connection complete, we will setup the VNC</p>
+			<h3>Veins N Capillary poping up trying to do this</h3>
+			  <p>The reason why you would need a VNC connection is so that there is a graphical interface, an SSH can only
+					provide a comandline interface control</p>
+				<p>To continue, now having a SSH control to the Rpi, lets get the VNC software.Run the following</p>
+				<code>
+					sudo apt-get upgrade<br>
+					sudo apt-get update<br>
+					sudo apt-get install tightvncserver<br>
+				</code>
+				<p>If installation is complete, start the vnc!</p>
+				<code>
+					/usr/bin/tightvncserver
+				</code>
+				<p>When the code is executed, it will prompt for a password so just give it a password</p>
+				<p>After that, it will ask for a viewonly password, just no it</p>
+				<p>With the VNC on your RPi running, go to your PC and start the TightVNC Viewer (search it up its not automaticall in your desktop...)</p>
+				<p>using the same IP as when you SSH, put it as the "Remote Host" in the following fashion</p>
+				<p>192.168.0.10::5901</p>
+				<p>Change "192.168.0.10" to your own IP address, but the port number should be the same</p>
+				<img src="img/VNCConnection.JPG" alt="VNC Connetion Pic" id="blogImg">
+				<p>Then connect, it will prompt for a password so enter the password you setup previously and you are connected!</p>
+				<p>CONGRATZ!!!!</p>
+			<h3>Discalmer</h3>
+				<p>Take note that the VNC will not automatically start up when you start the RPi, you have to SSH into it to start
+					the VNC first before connecting to it using VNC</p>
+				<p>Also take note that the "Lite" version of the Raspbian does not contain a GUI, so VNCing into it will produce a error.
+					If you want to have the graphical interace, run the following</p>
+					<code>
+						sudo apt install raspberrypi-ui-mods
+					</code>
+			<h3>If you lazy and want VNC to start up automatically with RPi</h3>
+				<p>Here: <a href="http://www.penguintutor.com/linux/tightvnc"> PenguinTutor VNC auto start</a></p>
+		</div>
 		<div id="footer">
 			Copyright Tristan Technologies 2018 &copy;
 		</div>

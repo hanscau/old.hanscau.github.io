@@ -4,7 +4,7 @@ document.getElementById("footer").innerHTML = "Copyright Hans Bacca 2018 &copy;"
 nameList=["Linux Ubuntu",
           "CUDA 9.0",
           "OpenCV 3.4.0",
-          "Rpi + SSH"]
+          "Rpi Setup"]
 
 addressList=["linux_ubuntu.html",
               "cuda_installation.html",

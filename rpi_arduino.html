@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>H RPi+SSH</title>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="container">
+
+		<div id="header">
+			<h1 id="title"> Tristan Technologies</h1>
+		</div>
+
+		<div id = "content">
+			<div id ="nav">
+				<h3>Navigation</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="object_detection.html">Object Detection</a></li>
+				</ul>
+				<h4>Resources</h4>
+				<ul id="navContainer">
+				</ul>
+			</div>
+
+			<div id="main">
+			<h2>RaspberryPi + SSH</h2>
+			<hr>
+			<h3>Resources</h3>
+				<p>Rasbpian OS Flashed on SD card</p>
+				<p><a href="resources/ssh">This file here</a></p>
+				<p><a href="https://www.putty.org/">Putty</a></p>
+			<h3>Setting up RaspberryPi</h3>
+				<p>Copy the downloaded file above ("ssh") into the "boot" folder
+					of the RPi SD card</p>
+					<note>
+						NOTE: Rpi = RaspberryPi
+					</note>
+			<h3>Connecting to the web</h3>
+				<h3>Ethernet</h3>
+				<p>Connect RPi to internet using ethernet</p>
+				<p>Plug in and skip the next part</p>
+				<h3>Wifi</h3>
+				<h4>Headless connection</h4>
+				<p>Using a card reader, insert in the SD card and open up the "boot" partition</p>
+				<p>Make a new file named "wpa_supplicant.conf"</p>
+				<p>In the file add in the following</p>
+				<code>
+					country=fr<br>
+					update_config=1<br>
+					ctrl_interface=/var/run/wpa_supplicant<br>
+					<br>
+					network={<br>
+ 					scan_ssid=1<br>
+ 					ssid="RouterName"<br>
+ 					psk="Password"<br>
+ 					key_mgmt=WPA-PSK<br>
+					}
+				</code>
+				<p>Change "RounterName" to the name of the Wifi you want to connect</p>
+				<p>Change "Password" to the password of the Wifi</p>
+				<p>If your wifi is using WPE, change "key_mgmt=WPA-PSK" to</p>
+				<code>
+					key_mgmt=NONE
+				</code>
+				<p>If your wifi does not have a password, just enter in the ssid, delete the "psk" and "key_mgmt" line</p>
+				<p>Its okay if your country code is different....</p>
+				<note>
+					NOTE: Add in the name and password with quotation mark
+				</note>
+				<p>Don't forget to save!</p>
+				<h4>GUI Connection</h4>
+				<p>In the upper left of your desktop there should be a WiFi symbol...</p>
+				<p>Connect it normally?</p>
+				<note>
+					NOTE: for a new RPi boot, id="pi" password="raspberry"
+				</note>
+				<h4>Command Line connection</h4>
+				<code>
+					sudo raspi-config
+				</code>
+				<p>Navigate using arrowkey and connect to wifi</p>
+			<h3>Connecting to 3.1415265</h3>
+				<p>Run the following in terminal to get IP of the Rpi</p>
+				<code>
+					ip addr show
+				</code>
+				<p>Open Putty and copy the IP adress of the Rpi into the blank. Allow
+					the port to be default (22) and select SSH. Connect!</p>
+				<p>When SSH connects, login as (if you didn't change it)</p>
+				<p>id=pi</p>
+				<p>password=raspberry</p>
+				<note>
+					NOTE: When typing password, you cannot see the word... its a Linux thing i think
+				</note>
+				<p>And you are connected!</p>
+			<h3>Headless configuration</h3>
+				<p>Another way you can get the IP of your RPi after its connected to the WiFi is with Angry IP Scanner</p>
+				<p><a href="https://angryip.org/download/#windows">Angry IP Scanner</a></p>
+				<p>Or you could just access the admin panel of your router and locate the IP adress of the hostname "raspberrypi"</p>
+			</div>
+
+		<div id="footer">
+			Copyright Tristan Technologies 2018 &copy;
+		</div>
+
+	</div>
+	<script src="autoEdit.js"></script>
+</body>
+</html>
