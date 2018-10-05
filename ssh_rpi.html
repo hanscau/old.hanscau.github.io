@@ -56,7 +56,7 @@
 				<p>I will be using Raspbian Strech Lite because I need all the extra space I can get from the RPi</p>
 				<p>After flashing is complete with verification by Etcher we can start by conneting the RPi to the internet</p>
 				<note>
-					NOTE: IF ETCHER VERIFCATION FAIL, CONTINUE AT YOUR OWN RISKED (NOTE RECOMMENDED)
+					NOTE: IF ETCHER VERIFCATION FAIL, CONTINUE AT YOUR OWN RISKED <br>(NOT RECOMMENDED)
 				</note>
 			<h3>Connecting to the web</h3>
 				<h3>Ethernet</h3>
@@ -99,6 +99,7 @@
 					RPi, it should be under the host name raspberrypi</p>
 				<p>Open Putty and copy the IP adress of the Rpi into the blank. Allow
 					the port to be default (22) and select SSH. Connect!</p>
+					<img src="img/SSHConnection.JPG" alt="SSH connection" id="blogImg">
 				<p>When SSH connects, login as (if you didn't change it)</p>
 				<p>id=pi</p>
 				<p>password=raspberry</p>
@@ -109,7 +110,7 @@
 			<h3>Veins N Capillary poping up trying to do this</h3>
 			  <p>The reason why you would need a VNC connection is so that there is a graphical interface, an SSH can only
 					provide a comandline interface control</p>
-				<p>To continue, now having a SSH control to the Rpi, lets get the VNC software.Run the following</p>
+				<p>To continue, now having a SSH control to the Rpi, lets get the VNC software. Run the following</p>
 				<code>
 					sudo apt-get upgrade<br>
 					sudo apt-get update<br>
@@ -121,7 +122,7 @@
 				</code>
 				<p>When the code is executed, it will prompt for a password so just give it a password</p>
 				<p>After that, it will ask for a viewonly password, just no it</p>
-				<p>With the VNC on your RPi running, go to your PC and start the TightVNC Viewer (search it up its not automaticall in your desktop...)</p>
+				<p>With the VNC on your RPi running, go to your PC and start the TightVNC Viewer (search it up its not automatically in your desktop...)</p>
 				<p>using the same IP as when you SSH, put it as the "Remote Host" in the following fashion</p>
 				<p>192.168.0.10::5901</p>
 				<p>Change "192.168.0.10" to your own IP address, but the port number should be the same</p>
