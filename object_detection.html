@@ -62,8 +62,6 @@
 				<code>
 					make
 				</code>
-				<p>This will copy(clone) the whole darknet repository from github to your root folder
-				and compile it</p>
 				<h3>Testing YOLO</h3>
 				<p>While still in the darknet directory, run this to get the sample weight(model) for testing</p>
 				<code>
@@ -167,21 +165,26 @@
 								downloaded folder("training" folder)</p>
 								<p>Then do the following</p>
 								<p>1. in allclass.names, add the name of the labeled image</p>
-								<p>2. run the python script voc_label.py. This should create 2 text file called "2007_test.txt" and "2012_trainval.txt"</p>
-								<p>3. in yolov2.data, change the data accordingly.</p>
-								<p>classes - number of different label that you have (1 for me since I only have "ping_pong_ball")<br>
+								<p>2. in voc_label.py, under classes. Add all your class in a list fashion.</p>
+								<code>
+									#Example<br>
+									classes = ["itemOne","itemTwo","itemThree"]
+								</code>
+								<p>3. run the python script voc_label.py. This should create 2 text file called "2007_test.txt" and "2012_trainval.txt"</p>
+								<p>4. in yolov2.data, change the data accordingly.</p>
+								<p>classes - number of different label that you have <br>(1 for me since I only have "ping_pong_ball")<br>
 									train - path of the trainval.txt (should be in the "training" folder)<br>
 									valid - path of the test.txt (should also be in the "training" folder)<br>
 									names - path to allclass.names (in the "training" folder)<br>
 									backup - path to the folder yolov2 (in "training" folder)<br></p>
 								<p>You need to change this as different computer have different username and thus different path</p>
-								<p>4. from your darnet installation folder (should be in root) go into config and copy any cfg file you
+								<p>5. from your darnet installation folder (should be in root) go into config and copy any cfg file you
 									 want(I will be using yolov2.cfg). Paste them into the "training" folder</p>
-								<p>5. Again from darnet folder, copy the entire "data" folder into your "training" folder</p>
-								<p>6. In the .cfg file that you want to use</p>
+								<p>6. Again from darnet folder, copy the entire "data" folder into your "training" folder</p>
+								<p>7. In the .cfg file that you want to use</p>
 								<p>Under [net] set batch to 16 and subdivisions to 4 (should be in line 6 and 7 respectively if you are using yolov2.cfg)</p>
 								<p>Scroll all the way down, and under [region] set classes to the number of class you have (line 244 in yolov2.cfg)</p>
-								<p>A little above it, under [convolutional] with activation = linear, set <br>filters to (classes + 1)*5 (line 237 in yolov2.cfg)</p>
+								<p>A little above it, under [convolutional] with activation = linear, set <br>filters to (classes + 5)*5 (line 237 in yolov2.cfg)</p>
 								<p>Save the .cfg file</p>
 								<p>Now you are ready to start training</p>
 								<p>Open a terminal in the "training" folder directory and run the following</p>
@@ -193,13 +196,13 @@
 								your own user name and run the command. If not, then change the "/home/hanscau/darknet/darknet" to
 								where you installed darknet</p>
 								<p>This should run some code and start training your model</p>
-								<p>Look out for the SOMETHING, the higher it goes, the more accurate the training</p>
+								<p>Look out for the ave IOU, the higher it goes, the more accurate the training</p>
 								<!-- TODO: FIND OUT WHAT SOMETHING IS -->
 								<p>The training will automatically create a model after every 100 images interval, then after 900 images
 									it will create a model at a 10000 image interval</p>
 									<p> the model will be saved in the "yolov2" folder in the "training" folder</p>
 								<note>NOTE: The images that they use to train does not have to correspond to the number of images that you supplied. Meaning
-									it can train until 10 000 images even though you only supplied 100++</note>
+									it can train until 10 000 iteration even though you only supplied 100++</note>
 									<p>After the desired model is done, you can cancel the training. Press Ctrl + C to cancel it</p>
 									<note>NOTE: You can use [Ctrl + C] to cancel most scripts or application</note>
 									<p>Now for the part where all of us are waiting for</p>
