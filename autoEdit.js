@@ -4,12 +4,14 @@ document.getElementById("footer").innerHTML = "Copyright Hans Bacca 2018 &copy;"
 nameList=["Linux Ubuntu",
           "CUDA 9.0",
           "OpenCV 3.4.0",
-          "Rpi Setup"]
+          "Rpi Setup",
+          "PPB Detection"]
 
 addressList=["linux_ubuntu.html",
               "cuda_installation.html",
               "opencv_installation.html",
-              "ssh_rpi.html"]
+              "ssh_rpi.html",
+              "portable_ppb_detection.html"]
 
 
 
