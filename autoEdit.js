@@ -5,13 +5,15 @@ nameList=["Linux Ubuntu",
           "CUDA 9.0",
           "OpenCV 3.4.0",
           "Rpi Setup",
-          "PPB Detection"]
+          "PPB Detection",
+		  "Invisible Tripwire Alarm"]
 
 addressList=["linux_ubuntu.html",
               "cuda_installation.html",
               "opencv_installation.html",
               "ssh_rpi.html",
-              "portable_ppb_detection.html"]
+              "portable_ppb_detection.html",
+			  "invisible-tripwire-alarm.html"]
 
 
 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TT Home Page</title>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="container">
+
+		<div id="header">
+			<h1 id="title"> Hans Bacca</h1>
+		</div>
+
+		<div id = "content">
+			<div id ="nav">
+				<h3>Navigation</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="object_detection.html"  class="selected">Object Detection</a></li>
+				</ul>
+				<h4>Resources</h4>
+				<ul id="navContainer">
+				</ul>
+			</div>
+
+		<div id="main">
+			<h1>Invisible Tripwire Alarm</h1>
+			<hr>
+			<h2>Abstract</h2>
+			<p>Have you ever been falsely accused? Been wronged because the other party did not 
+			know what you have done? Well I have. I have always been a diligent student, doing all 
+			my homework before playing games or watching cute dog videos on Youtube. However, 
+			my parents (or guardian for this matter) always comes in the wrong moments to see me always 
+			playing and never studying. My guardians always have bad timing to come check on me to see me shouting 
+			at my friend across the web. When I am studying, they do not come in at all.</p>
+			<p>So what do I do? Should I then study 24/7 so that they can finally "catch" me playing?</p>
+			<p>NO</p>
+			<p>I'm an engineer and we solve problem by creating products, so I have decided to make a notification system that 
+			will notify me when someone is entering my room (NOTE: There was another problem on how they can come in without me knowing too, so
+			now I'm going to solve 2 problem with 1 solution)</p>
+			<p>The system will be an Arduino shield that uses ultrasonic sensor to act as the "invisible tripwire" and a buzzer to notify me.</p>
+			
+			<h2>Component List</h2>
+			<p>You would need...</p>
+			<p>1x Arduino Uno</p>
+			<p>1x Stripboard (at least 15 holes by 20 holes)</p>
+			<p>1x 8pin leg</p>
+			<p>2x 6pin leg</p>
+			<p>1x Buzzer</p>
+			<p>1x 2N222 BJT Transistor</p>
+			<p>1x 330Ω resistor</p>
+			<p>1x 1kΩ resistor</p>
+			<p>1x Potentiometer (10kΩ)</p>
+			<p>1x Ultrasonic sensor</p>
+			<p>1x 9V battery</p>
+			<p>A bunch of wire (not really actually, but oh well)</p>
+			
+			<h2>The S.H.I.E.L.D</h2>
+			<p>For those who are curious how we are going to wire the individual components,
+			here are the schematic for the individual parts namely the buzzer and 
+			the potentiometer (ultrasonic sensor just plug and play so no schematic)</p>
+			<img src="img/Schematic1.png" alt="1st schematic" id="blogImg">
+			<p>The above is the schematic for the buzzer. Transistor to control the current flow 
+			resistor to limit the current to protect the buzzer</p>
+			<img src="img/Schematic2.png" alt="2nd schematic" id="blogImg">
+			<p>Here the second one is the potentiometer schematic, we will be using the analog
+			reader on the Arduino to read the voltage level across the 1kΩ resistor. (Any value is ok, 
+			but 1k so we have a nicer gradient when varying the potentiometer which is 10kΩ</p>
+			<p>Now with everything that you have, you can start soldering everything onto the stripboard</p>
+			<img src="img/Schematic3.png" alt="3rd schematic" id="blogImg">
+			<p>The "x"s on the board are holes that needs to be drilled onto the copper lanes to prevent them 
+			from conducting</p>
+			<p>Lines are wires, and the tiny squares are the connection to the Arduino</p>
+			<p>If you are too lazy and have a PCB miller at home, here: <a href="resources/EA.brd">PCB design</a></p>
+			
+			<h2>Code</h2>
+			<p>After you have soldered everything to the stripboard (or PCB), you can now plug it on top of an Arduino,
+			plug in the Buzzer and power supply and load in the code below</p>
+			<pre>
+			<code>
+#include &lt;Ultrasonic.h&gt;
+
+const int pin = 5;  //Transistor Control Pin
+Ultrasonic ultrasonic(7, 6); //Initialise Ultrasonic
+int threshold = 0;  //Distance Threshold variable
+
+void setup() {
+  pinMode(A4, INPUT); //Set A4 as Analog Read
+  pinMode(pin, OUTPUT); //Set pin 5 as output
+
+  Serial.begin(9600); // Starts the serial communication
+}
+
+void loop() {
+  int value = analogRead(A4); //Read from A4
+  int distance = ultrasonic.distanceRead(); //Read from ultrasonic sensor
+
+  threshold = map(value, 100, 1000, 5, 100); //Map threshold sensitivity
+
+  //Print out all data
+  Serial.print("Distance = ");
+  Serial.print(distance);
+  Serial.print(", Threshold = ");
+  Serial.println(threshold);
+
+  if (distance > threshold)
+  {
+    //Buzzer Off
+    digitalWrite(pin, LOW);
+  }
+  else if (distance < threshold && distance > 0)
+  {
+    //Trigger Buzzer
+    digitalWrite(pin, HIGH);
+  }
+  else  //when Ultrasonic sensor does not sense anything
+  {
+    //Buzzer Off
+    digitalWrite(pin, LOW);
+  }
+}
+</code>
+</pre>
+<p>Or Download here: <a href="resources/EA_EEE_Code_CA2.ino">Code</a></p>
+<p>And like magic now you have a invisible tripwire alarm too!</p>
+<p>To see it in action, here: <a href="https://youtu.be/FjdpkS8Fiy0">Youtube</a></p>
+
+		</div>
+				
+		<div id="footer">
+			Copyright Hans Bacca 2019 &copy;
+		</div>
+
+		</div>
+	</div>
+	<script src="autoEdit.js"></script>
+</body></html>
